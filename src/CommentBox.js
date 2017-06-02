@@ -31,8 +31,8 @@ class CommentBox extends Component {
         axios.post(this.props.url, comment)
         .catch(err => {
             console.log(err);
-            this.setState({data: comments});
-        })
+            this.setState({data:comments});
+        });
     }
 
     componentDidMount() {

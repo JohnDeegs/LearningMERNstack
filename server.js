@@ -67,7 +67,45 @@ router.route('/comments')
                 res.json({message: "Comment successfully added!!!"});
             }
         });
+    })
+
+    router.route('/comments/:comment_id')
+
+    //add route to target specific comment
+    .put((req, res) => {
+        Comment.findById(req.params.comment_id, (err, comment) => {
+            if(err){
+                res.send(err);
+            }else{
+                (req.body.author) ? comment.author = req.body.author : null;
+                (req.body.text) ? comment.text = req.body.text : null;
+            }
+            //setting new author and test to the updated values
+            //if nothing was changed field is not altered
+
+            //save Comment
+            comment.save((err) => {
+                if(err){
+                    res.send(err);
+                }else{
+                    res.json({message: 'Comment has been updated'});
+                }
+            });
+        });
+    })
+    //delete method for removing a comment from databases
+    .delete((req, res) => {
+        //selects comment by ID then deletes it
+        Comment.remove({_id: req.params.comment_id}, (err, comment) => {
+            if(err){
+                res.send(err);
+            }else{
+                res.json({message: 'Comment has been deleted'});
+            }
+        });
     });
+
+
 
 
 
