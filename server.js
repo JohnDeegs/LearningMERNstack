@@ -16,6 +16,9 @@ const router = express.Router();
 //setup ports
 const port = process.env.API_PORT || 3001;
 
+//fix mongoose promises
+mongoose.Promise = global.Promise;
+
 //db config
 mongoose.connect('mongodb://john:qprqpr11@ds151631.mlab.com:51631/my-react-db');
 
@@ -116,5 +119,5 @@ app.use('/api', router);
 
 //starts server
 app.listen(port, () => {
-    console.log('Listening on port ${port}');
+    console.log(`Listening on port ${port}`);
 });
